@@ -1,0 +1,24 @@
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+import re
+from twilio.rest import TwilioRestClient
+
+A1 = "ACb8e28dc4a841b1204a3ab6d957c7cbbf"
+A2 = "8a5bde354ffa747c950b18b8477ebaca"
+client = TwilioRestClient(A1, A2)
+
+url = 'http://www.accuweather.com/uk/ua/lviv/324561/april-weather/324561?monyr=4/1/2016'
+response = urlopen(url)
+html = response.read()
+
+selector = 'div.info div.cond'
+soup = BeautifulSoup(html, "html.parser")
+bills = soup.select(selector)
+
+
+for l in bills:
+    	if re.match(u".*(дощ|сніг)", l.text): client.message.create(
+    to = "+380932451850",
+    from = "+12674335886",
+    body = "Привет! Сегодня дождь и скверно...",
+    )

@@ -1,0 +1,12 @@
+from twilio.rest import TwilioRestClient
+
+A1 = "ACb8e28dc4a841b1204a3ab6d957c7cbbf"
+A2 = "8a5bde354ffa747c950b18b8477ebaca"
+client = TwilioRestClient(A1, A2)
+
+
+client.message.create(
+    to = "+380932451850",
+    from = "+12674335886",
+    body = "Привет! Сегодня дождь и скверно...",
+    )
